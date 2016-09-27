@@ -11,11 +11,20 @@
              <button id="submit">Submit</button></div>
 <div id="fail"></div>
 
+<span id="errorMessage"></span>
+
 <script>
 function guess() {
   var oldPattern = $("#pattern").text();
   var oldGuesses = $("#oldGuesses").text();
   var newGuesses = $("#newGuesses").val();
+  
+  if(newGuesses == "") {
+    $("#errorMessage").show();
+    $("#errorMessage").html("Please enter a letter!");  
+  } else {
+      $("#errorMessage").hide();
+  }
   $.get("/rest/match",
         { oldPattern: oldPattern, oldGuesses: oldGuesses, newGuesses: newGuesses },
         function(newPattern) {
@@ -38,6 +47,5 @@ $(function() {
         });
 });
 </script>
-
 </body>
 </html>
